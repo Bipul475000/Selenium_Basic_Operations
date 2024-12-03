@@ -26,8 +26,6 @@ public class BaseTest {
 	
 	@BeforeClass
 	public void init() throws IOException {
-		System.out.println("----Before class----");
-		
 		properties = new Properties();
 		fileLocation = System.getProperty("user.dir") + "/src/test/resources/Element.properties";
 		fileReader = new File(fileLocation);
@@ -38,7 +36,7 @@ public class BaseTest {
 	
 	@BeforeMethod
 	public void launchBrowser() {
-		System.out.println("----before test----");
+	
 		driver = new ChromeDriver();
 		driver.get("https://www.flipkart.com/"); 
 		driver.manage().window().maximize();
@@ -46,7 +44,7 @@ public class BaseTest {
 	
 	@AfterMethod
 	public void closeBrowser() {
-		System.out.println("---after test-----");
+		
 		driver.quit();
 	}
 
