@@ -15,7 +15,7 @@ import basePackage.BaseTest;
 
 public class CheckBox_Ops extends BaseTest {
 
-	@Test
+	@Test(invocationCount = 2)
 	public void selectAndDeselect() throws InterruptedException {
 
 		driver.findElement(By.xpath(properties.getProperty("FashionDropDown"))).click();
