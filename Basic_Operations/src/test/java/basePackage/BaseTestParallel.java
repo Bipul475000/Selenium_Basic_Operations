@@ -4,28 +4,30 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Reader;
 import java.util.Properties;
+import java.util.ResourceBundle;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 
-
-public class BaseTest {
+public class BaseTestParallel {
 	
-	protected static WebDriver driver;
+	protected static ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>();
+	protected ResourceBundle res = ResourceBundle.getBundle("Element");
 	protected Properties properties;
 	protected File fileReader;
 	protected InputStream stream;
 	private String fileLocation;
 	
+	
 	@BeforeClass
-	public void init() throws IOException {
+	public void setDriver() throws IOException {
+		System.out.println("Before Test");
+		
+		driver.set(new ChromeDriver());
+		System.out.println("driver reference "+ getDriver());
 		properties = new Properties();
 		fileLocation = System.getProperty("user.dir") + "/src/test/resources/Element.properties";
 		fileReader = new File(fileLocation);
@@ -34,18 +36,14 @@ public class BaseTest {
 		
 	}
 	
-	@BeforeMethod
-	public void launchBrowser() {
-	
-		driver = new ChromeDriver();
-		driver.get("https://www.flipkart.com/"); 
-		driver.manage().window().maximize();
+	public WebDriver getDriver() {
+		return driver.get();
 	}
 	
-	@AfterMethod
-	public void closeBrowser() {
-		
-		driver.quit();
+	@AfterClass
+	public void tearDown() {
+		getDriver().quit();
+		driver.remove();
 	}
 
 }
