@@ -26,7 +26,7 @@ public class BaseTestParallel {
 	private String fileLocation;
 	protected ExtentReports reports = new ExtentReports();
 	protected ExtentSparkReporter reporter = new ExtentSparkReporter(System.getProperty("user.dir") + "/target/extent.html");
-	protected ExtentTest test;
+	public ExtentTest test;
 	
 	
 	@BeforeClass
@@ -53,6 +53,7 @@ public class BaseTestParallel {
 	
 	@AfterClass
 	public void tearDown() {
+		System.out.println("AfterClass Method");
 		getDriver().quit();
 		driver.remove();
 		reports.flush();
