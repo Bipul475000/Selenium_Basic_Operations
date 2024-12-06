@@ -45,7 +45,7 @@
                 <configuration>
                     <!-- Specify the test class or package to run -->
                      <suiteXmlFiles>
-                        <suiteXmlFile>testng.xml</suiteXmlFile>
+                        <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
